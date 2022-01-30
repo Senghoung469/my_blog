@@ -10,15 +10,27 @@
           <div class="w-full bg-white rounded shadow h-full p-5 leading-6">
             <div class="flex justify-between">
               <el-row class="pr-10">
-                <el-button type="primary">Create Post</el-button>
+                <router-link :to="{ name: 'post-create' }">
+                  <el-button type="primary">Create Post</el-button>
+                </router-link>
               </el-row>
             </div>
             <el-table :data="this.tableData" style="width: 100%" class="mt-5">
               <el-table-column prop="id" label="Id" width="100">
               </el-table-column>
-              <el-table-column prop="name" label="Username" width="300">
+              <el-table-column prop="title" label="Title" width="250">
               </el-table-column>
-              <el-table-column prop="email" label="Email" width="500">
+              <el-table-column prop="user_id" label="Author" width="200">
+              </el-table-column>
+              <el-table-column
+                prop="description"
+                label="Description"
+                width="200"
+              >
+              </el-table-column>
+              <el-table-column prop="thumbnail" label="Thumbnail" width="150">
+              </el-table-column>
+              <el-table-column prop="status" label="Status" width="100">
               </el-table-column>
               <el-table-column fixed="right" label="Operation" width="120">
                 <template>

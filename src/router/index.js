@@ -29,6 +29,11 @@ const routes = [
     component: PostList
   },
   {
+    path: '/post/create',
+    name: 'post-create',
+    component: () => import('../views/admin/post/CreatePost')
+  },
+  {
     path: '/',
     name: 'home',
     component: Home
