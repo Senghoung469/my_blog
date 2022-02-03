@@ -11,9 +11,9 @@ import CKEditor from '@ckeditor/ckeditor5-vue2';
 Vue.use(Element);
 Vue.use( CKEditor );
 const token = localStorage.getItem('token')
-if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
-}
+// if (token) {
+//   Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+// }
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false
 

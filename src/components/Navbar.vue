@@ -29,11 +29,6 @@
         class="space-x-4 flex font-medium tracking-wide items-center"
         style="font-family: Khmer OS Siemreap"
       >
-        <a href="#">
-          <span>News</span>
-        </a>
-        <a href="#">Laravel</a>
-        <a href="#">Lesson</a>
         <el-dropdown>
           <span class="el-dropdown-link">
             Chit Senghoung<i class="el-icon-arrow-down el-icon--right"></i>

@@ -16,20 +16,25 @@
                 label-width="150px"
                 class="demo-ruleForm w-11/12"
               >
-                <el-form-item label="Activity title" prop="title">
+                <el-form-item label="Activity Title" prop="title">
                   <el-input v-model="ruleForm.title"></el-input>
                 </el-form-item>
-                <el-form-item label="Activity description" prop="desc">
-                  <el-input type="textarea" rows="4" v-model="ruleForm.desc"></el-input>
+                <el-form-item label="Activity Description" prop="desc">
+                  <el-input
+                    type="textarea"
+                    rows="4"
+                    v-model="ruleForm.desc"
+                  ></el-input>
                 </el-form-item>
-                <el-form-item label="Activity content" prop="conten">
+                <el-form-item label="Activity Content" prop="conten">
                   <ckeditor
                     :editor="editor"
                     v-model="editorData"
                     :config="editorConfig"
+                    accept="image/x-png,image/gif,image/jpeg"
                   ></ckeditor>
                 </el-form-item>
-                <el-form-item label="Activity thumbnail" prop="region">
+                <el-form-item label="Activity Thumbnail" prop="region">
                   <el-upload
                     action="#"
                     list-type="picture-card"
@@ -67,29 +72,11 @@
                       </span>
                     </div>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" />
+                  <el-dialog :visible.sync="this.dialogVisible">
+                    <img width="100%" :src="this.dialogImageUrl" />
                   </el-dialog>
                 </el-form-item>
-                <el-form-item label="Activity tag" required>
-                  <el-select
-                    v-model="value"
-                    multiple
-                    filterable
-                    allow-create
-                    default-first-option
-                    placeholder="Choose tags for your article"
-                  >
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="Instant public" prop="delivery">
+                <el-form-item label="Instant Public" prop="delivery">
                   <el-switch v-model="ruleForm.delivery"></el-switch>
                 </el-form-item>
                 <el-form-item>
@@ -111,44 +98,18 @@
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import UploadAdapter from '../../../UploadAdapter';
+import UploadAdapter from "../../../UploadAdapter";
 export default {
   data() {
     return {
       editor: ClassicEditor,
-      editorData: "",
+      editorData: null,
       editorConfig: {
-        toolbar: [
-          "heading",
-          "|",
-          "bold",
-          "italic",
-          "link",
-          "bulletedList",
-          "numberedList",
-          "|",
-          "insertTable",
-          "|",
-          "imageUpload",
-          "mediaEmbed",
-          "|",
-          "undo",
-          "redo",
-        ],
-        table: {
-          toolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-        },
         extraPlugins: [this.uploader],
         language: "en",
       },
       ruleForm: {
         title: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
         desc: "",
       },
       rules: {
@@ -157,44 +118,6 @@ export default {
             required: true,
             message: "Please input Activity title",
             trigger: "blur",
-          }
-        ],
-        region: [
-          {
-            required: true,
-            message: "Please select Activity zone",
-            trigger: "change",
-          },
-        ],
-        date1: [
-          {
-            type: "date",
-            required: true,
-            message: "Please pick a date",
-            trigger: "change",
-          },
-        ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "Please pick a time",
-            trigger: "change",
-          },
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "Please select at least one activity type",
-            trigger: "change",
-          },
-        ],
-        resource: [
-          {
-            required: true,
-            message: "Please select activity resource",
-            trigger: "change",
           },
         ],
         desc: [
