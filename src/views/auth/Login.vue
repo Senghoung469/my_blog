@@ -1,6 +1,27 @@
 <template>
-  <div class="w-1/3 h-96 mx-auto mt-20 bg-white p-5 rounded shadow text-sm">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" :method="POST">
+  <div
+    class="
+      lg:w-2/10
+      md:w-1/3
+      sm:w-1/2
+      w-2/3
+      h-full
+      mx-auto
+      mt-40
+      bg-white
+      p-5
+      rounded
+      shadow-md
+      text-sm
+    "
+  >
+    <el-form
+      :model="ruleForm"
+      status-icon
+      :rules="rules"
+      ref="ruleForm"
+      method="POST"
+    >
       <el-form-item label="Email (@)" prop="email">
         <el-input
           type="email"
@@ -18,8 +39,18 @@
       <el-form-item>
         <el-button
           :loading="ruleForm.isLoading"
-          type="primary"
-          class="w-full rounded-sm"
+          type="button"
+          class="
+            w-full
+            rounded-sm
+            bg-gray-800
+            text-white
+            hover:bg-black hover:text-white
+            focus:bg-gray-800 focus:text-white
+            focus:border-transparent
+            mt-5
+            mb-5
+          "
           @click="submitForm('ruleForm')"
           >Login</el-button
         >

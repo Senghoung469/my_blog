@@ -1,9 +1,9 @@
 <template>
   <el-menu
     default-active="2"
-    class="el-menu-vertical-demo h-auto rounded shadow"
+    class="shadow-md rounded-b-sm tracking-wide text-gray-100"
   >
-    <el-submenu index="1">
+    <!-- <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-user"></i>
         <span>Authentication</span>
@@ -16,7 +16,7 @@
         >
         <el-menu-item index="1-2">Role one</el-menu-item>
       </el-menu-item-group>
-    </el-submenu>
+    </el-submenu> -->
     <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-document"></i>
@@ -31,7 +31,7 @@
     </el-submenu>
     <el-menu-item index="3">
       <router-link :to="{ name: 'post' }"
-        ><i class="el-icon-menu"></i> Post Content</router-link
+        ><i class="el-icon-menu"></i> Post Article</router-link
       >
     </el-menu-item>
   </el-menu>

@@ -2,19 +2,19 @@
   <div>
     <Navbar />
     <div class="w-full mx-auto pl-5 pr-5">
-      <div class="grid grid-cols-12 gap-x-1">
-        <div class="col-span-2 flex-shrink">
+      <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
+        <div class="lg:col-span-3 sm:col-span-12 flex-shrink">
           <Sidebar />
         </div>
-        <div class="col-span-10">
-          <div class="rounded shadow h-full p-5 leading-6 bg-white">
-            <div class="flex justify-between">
+        <div class="lg:col-span-9 sm:col-span-12 flex-shrink">
+          <div class="p-5 bg-white shadow-md">
+            <div class="flex justify-between items-center">
               <el-form
                 :model="ruleForm"
                 :rules="rules"
                 ref="ruleForm"
                 label-width="150px"
-                class="demo-ruleForm w-11/12"
+                class="w-11/12"
               >
                 <el-form-item label="Activity Title" prop="title">
                   <el-input v-model="ruleForm.title"></el-input>
@@ -80,7 +80,20 @@
                   <el-switch v-model="ruleForm.delivery"></el-switch>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')"
+                  <el-button
+                    type="button"
+                    class="
+                      rounded-md
+                      bg-gray-800
+                      text-white
+                      hover:bg-black hover:text-white
+                      focus:bg-gray-800
+                      focus:text-white
+                      focus:border-transparent
+                      mt-5
+                      mb-5
+                    "
+                    @click="submitForm('ruleForm')"
                     >Create</el-button
                   >
                   <el-button @click="resetForm('ruleForm')">Reset</el-button>

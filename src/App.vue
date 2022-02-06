@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
+  <div id="app" class="font-normal">
     <router-view />
   </div>
 </template>
 <script>
 export default {};
 </script>
+
 <style>
-body {
-  background-color: rgba(228, 245, 248, 0.432);
+body{
+  background: #f2f2f2
 }
 </style>
-

@@ -1,135 +1,148 @@
 <template>
-  <div
-    class="
-      w-3/4
-      mx-auto
-      grid
-      lg:grid-cols-4
-      md:grid-cols-2
-      sm:grid-cols-1
-      md:gap-10
-      lg:gap-5
-      sm:gap-y-32
-      text-center
-    "
-  >
-    <div
-      class="
-        max-w-lg
-        h-64
-        bg-white
-        transition-all
-        duration-1000
-        hover:translate-y-1 hover:opacity-75
-      "
-    >
-      <a href="#">
-        <img
-          class="object-cover mb-2 rounded"
-          src="https://laravelnews.imgix.net/images/inertia-head.jpg?ixlib=php-3.3.1"
-        />
-        <span class="text-sm text-gray-400">September 9th, 2021</span>
-        <span>
-          <h1 class="text-md font-bold text-indigo-800 mt-2">
-            ការបង្រៀន Laravel កំពូលទាំង 10 របស់យើងក្នុងឆ្នាំ 2021
-          </h1>
-        </span>
-      </a>
+  <div>
+    <Navbar />
+    <div class="w-3/4 mx-auto shadow-sm bg-white p-2">
+      <el-carousel indicator-position="outside" :interval="5000">
+        <el-carousel-item>
+          <div class="grid grid-cols-12">
+            <div class="col-span-6">
+              <img
+                src="https://www.itsolutionstuff.com/upload/laravel-8-ajax-image-upload.png"
+              />
+            </div>
+            <div class="col-span-6 ml-32">
+              <h1>Angular Simple Pagination Example | ngx-pagination</h1>
+            </div>
+          </div>
+        </el-carousel-item>
+        <el-carousel-item>
+          <div class="grid grid-cols-12">
+            <div class="col-span-5">
+              <img
+                src="https://www.itsolutionstuff.com/upload/laravel-7-http-client.png"
+              />
+            </div>
+            <div class="col-span-7 ml-32">
+              <h1>Angular Simple Pagination Example | ngx-pagination</h1>
+            </div>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
     </div>
-    <div
-      class="
-        max-w-lg
-        h-64
-        bg-white
-        transition-all
-        duration-1000
-        hover:translate-y-1 hover:opacity-75
-      "
-    >
-      <a href="#">
-        <img
-          class="object-cover mb-2 rounded"
-          src="https://laravelnews.imgix.net/images/service-container-tips.jpg?ixlib=php-3.3.1"
-        />
-        <span class="text-sm text-gray-400">September 9th, 2021</span>
-        <span>
-          <h1 class="text-md font-bold text-indigo-800 mt-2">
-            5 គន្លឹះសម្រាប់កុងតឺន័រសេវាកម្ម Laravel
+    <div class="w-3/4 mx-auto grid grid-cols-12 mt-2 gap-x-2 gap-y-10">
+      <div class="col-span-9">
+        <div class="grid grid-cols-12 shadow-sm bg-white rounded-l-md p-2">
+          <div class="col-span-4 mt-2">
+            <img
+              class="w-64 object-cover rounded-l-md"
+              src="https://www.itsolutionstuff.com/upload/angular-dropdown-select.png"
+            />
+          </div>
+          <div class="col-span-7">
+            <h1 class="text-xl text-indigo-800 font-bold">
+              Angular 13 Google Maps Integration Example
+            </h1>
+            <p class="text-sm text-justify font-serif text-gray-500 mt-3">
+              I am going to explain to you an example of angular 13 google maps
+              example. This article goes into detail on how to add google map in
+              angular 13. you can understand the concept of angular 13 google
+              map example. it's a simple example of angular 13 agm core google
+              maps example
+            </p>
+          </div>
+        </div>
+        <div class="mt-10 flex justify-end">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="500"
+            :page-size="10"
+          >
+          </el-pagination>
+        </div>
+        <div>
+          <h1
+            class="
+              text-2xl
+              font-bold
+              text-indigo-800
+              font-serif
+              flex
+              justify-center
+              mt-10
+              mb-2
+              leading-10
+              tracking-wide
+            "
+          >
+            Featured Post
           </h1>
-        </span>
-      </a>
-    </div>
-    <div
-      class="
-        max-w-lg
-        h-64
-        bg-white
-        transition-all
-        duration-1000
-        hover:translate-y-1 hover:opacity-75
-      "
-    >
-      <a href="#">
-        <img
-          class="object-cover mb-2 rounded"
-          src="https://laravelnews.imgix.net/images/group-multiple-boolean-attributes.png?ixlib=php-3.3.1"
-        />
-        <span class="text-sm text-gray-400">September 9th, 2021</span>
-        <span>
-          <h1 class="text-md font-bold text-indigo-800 mt-2">
-            ស្វែងរកបញ្ហា N+1 ភ្លាមៗដោយបិទការផ្ទុកខ្ជិល
-          </h1>
-        </span>
-      </a>
-    </div>
-    <div
-      class="
-        max-w-lg
-        h-64
-        bg-white
-        transition-all
-        duration-1000
-        hover:translate-y-1 hover:opacity-75
-      "
-    >
-      <a href="#">
-        <img
-          class="object-cover mb-2 rounded"
-          src="https://laravelnews.imgix.net/images/inertia-head.jpg?ixlib=php-3.3.1"
-        />
-        <span class="text-sm text-gray-400">September 9th, 2021</span>
-        <span>
-          <h1 class="text-md font-bold text-indigo-800 mt-2">
-            ស្វែងរកបញ្ហា N+1 ភ្លាមៗដោយបិទការផ្ទុកខ្ជិល
-          </h1>
-        </span>
-      </a>
-    </div>
-    <div
-      class="
-        max-w-lg max-h-64
-        bg-white
-        transition-all
-        duration-1000
-        hover:translate-y-1 hover:opacity-75
-      "
-    >
-      <a href="#">
-        <img
-          class="object-cover mb-2 rounded"
-          src="https://res.cloudinary.com/practicaldev/image/fetch/s--MrNHOyis--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/csc5lxfqxmlsymn63o4r.png"
-        />
-        <span class="text-sm text-gray-400">September 9th, 2021</span>
-        <span>
-          <h1 class="text-md font-bold text-indigo-800 mt-2">
-            ស្វែងរកបញ្ហា N+1 ភ្លាមៗដោយបិទការផ្ទុកខ្ជិល
-          </h1>
-        </span>
-      </a>
+          <hr class="h-1 bg-indigo-800 rounded-full mb-2" />
+        </div>
+        <div class="grid grid-cols-3 mb-10 gap-4">
+          <div
+            class="
+              w-full
+              bg-white
+              shadow-sm
+              p-5
+              rounded-md
+              transition-all
+              duration-500
+              hover:border-indigo-800
+              border-b-4
+              cursor-pointer
+            "
+          >
+            <div>
+              <img
+                class="object-cover"
+                src="https://www.itsolutionstuff.com/upload/laravel-7-http-client.png"
+              />
+              <hr />
+            </div>
+            <div>
+              <h1 class="text-md text-indigo-800 font-bold mt-2">
+                How to add on Change Event on Dropdown in Angular?
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="w-full shadow-sm bg-white p-4">
+          <h1 class="text-center font-bold text-gray-500 mt-2">Our Follower</h1>
+          <div class="flex justify-center space-x-1">
+            <router-link to="#" class="text-center text-gray-500 text-sm">
+              <img
+                class="shadow-md rounded-full"
+                src="https://img.icons8.com/color/48/000000/facebook-new.png"
+              />
+            </router-link>
+            <router-link to="#">
+              <img
+                class="shadow-md rounded-full"
+                src="https://img.icons8.com/color/48/000000/youtube-music.png"
+              />
+            </router-link>
+            <router-link to="#">
+              <img
+                class="shadow-md rounded-full"
+                src="https://img.icons8.com/color/48/000000/twitter-circled--v1.png"
+              />
+            </router-link>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import Navbar from "@/components/Navbar";
+export default {
+  components: {
+    Navbar,
+  },
+};
 </script>
