@@ -1,48 +1,76 @@
 <template>
   <div>
     <Navbar />
-    <div class="w-3/4 mx-auto shadow-sm bg-white p-2">
+    <div class="lg:w-3/4 sm:w-11/12 mx-auto shadow-sm bg-white p-2 mt-8">
       <el-carousel indicator-position="outside" :interval="5000">
         <el-carousel-item>
-          <div class="grid grid-cols-12">
-            <div class="col-span-6">
+          <div class="grid lg:grid-cols-12 gap-x-4">
+            <div class="lg:col-span-6 sm:col-span-6">
               <img
                 src="https://www.itsolutionstuff.com/upload/laravel-8-ajax-image-upload.png"
               />
             </div>
-            <div class="col-span-6 ml-32">
-              <h1>Angular Simple Pagination Example | ngx-pagination</h1>
-            </div>
-          </div>
-        </el-carousel-item>
-        <el-carousel-item>
-          <div class="grid grid-cols-12">
-            <div class="col-span-5">
-              <img
-                src="https://www.itsolutionstuff.com/upload/laravel-7-http-client.png"
-              />
-            </div>
-            <div class="col-span-7 ml-32">
-              <h1>Angular Simple Pagination Example | ngx-pagination</h1>
+            <div class="lg:col-span-6 sm:col-span-6 pr-5">
+              <h1 class="text-xl text-indigo-800 font-bold mb-4">
+                Angular 13 Google Maps Integration Example3
+              </h1>
+              <p class="font-serif text-gray-500 text-justify leading-6">
+                When developing a web application, it is generally a good idea
+                to split it into two tiers. A middle-tier API interacts with the
+                database, and a web tier usually consists of a front-end SPA or
+                MPA. This way, a web application is more loosely coupled, making
+                it easier to manage and debug in the long run.
+              </p>
             </div>
           </div>
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="w-3/4 mx-auto grid grid-cols-12 mt-2 gap-x-2 gap-y-10">
-      <div class="col-span-9">
-        <div class="grid grid-cols-12 shadow-sm bg-white rounded-l-md p-2">
-          <div class="col-span-4 mt-2">
+    <div
+      class="
+        grid
+        lg:w-3/4
+        sm:w-11/12
+        mx-auto
+        lg:grid-cols-12
+        sm:grid-cols-12
+        mt-2
+        lg:gap-x-2
+        gap-y-10
+      "
+    >
+      <div class="lg:col-span-8 sm:col-span-12">
+        <div
+          class="
+            grid
+            lg:grid-cols-12
+            rounded-l-md
+            lg:gap-x-2
+            p-5
+            shadow-sm
+            bg-white
+            cursor-pointer
+          "
+        >
+          <div class="lg:col-span-4 sm:col-span-4">
             <img
-              class="w-64 object-cover rounded-l-md"
-              src="https://www.itsolutionstuff.com/upload/angular-dropdown-select.png"
+              class="lg:w-full sm:w-full rounded object-cover lg:rounded-l-md"
+              src="https://www.itsolutionstuff.com/upload/laravel-8-ajax-image-upload.png"
             />
           </div>
-          <div class="col-span-7">
+          <div class="lg:col-span-7 sm:col-span-4">
             <h1 class="text-xl text-indigo-800 font-bold">
-              Angular 13 Google Maps Integration Example
+              Angular 13 Google Maps Integration Example3
             </h1>
-            <p class="text-sm text-justify font-serif text-gray-500 mt-3">
+            <p
+              class="
+                text-sm text-justify
+                font-serif
+                text-gray-500
+                mt-4
+                leading-5
+              "
+            >
               I am going to explain to you an example of angular 13 google maps
               example. This article goes into detail on how to add google map in
               angular 13. you can understand the concept of angular 13 google
@@ -79,7 +107,7 @@
           </h1>
           <hr class="h-1 bg-indigo-800 rounded-full mb-2" />
         </div>
-        <div class="grid grid-cols-3 mb-10 gap-4">
+        <div class="grid mb-10 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <div
             class="
               w-full
@@ -109,7 +137,7 @@
           </div>
         </div>
       </div>
-      <div class="col-span-3">
+      <div class="lg:col-span-4 sm:col-span-12 md:col-span-12">
         <div class="w-full shadow-sm bg-white p-4">
           <h1 class="text-center font-bold text-gray-500 mt-2">Our Follower</h1>
           <div class="flex justify-center space-x-1">
@@ -131,6 +159,25 @@
                 src="https://img.icons8.com/color/48/000000/twitter-circled--v1.png"
               />
             </router-link>
+          </div>
+        </div>
+        <div class="w-full shadow-sm bg-white p-2 mt-1">
+          <div>
+            <input
+              type="text"
+              class="
+                w-full
+                outline-none
+                p-2
+                border-2
+                rounded-sm
+                border-gray-300
+                text-gray-500 text-sm
+                font-medium
+                focus:border-indigo-800
+              "
+              placeholder="search..."
+            />
           </div>
         </div>
       </div>

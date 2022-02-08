@@ -1,13 +1,13 @@
 <template>
   <div>
     <Navbar />
-    <div class="w-full mx-auto pl-5 pr-5">
+    <div class="w-3/4 mx-auto pl-5 pr-5 mt-8">
       <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
-        <div class="lg:col-span-3 sm:col-span-12 flex-shrink">
+        <div class="lg:col-span-3 sm:col-span-12">
           <Sidebar />
         </div>
-        <div class="lg:col-span-9 sm:col-span-12 flex-shrink">
-          <div class="p-5 bg-white shadow-md">
+        <div class="lg:col-span-9 sm:col-span-12">
+          <div class="p-5 bg-white">
             <div class="flex justify-between items-center">
               <el-form
                 :model="ruleForm"

@@ -1,13 +1,13 @@
 <template>
   <div>
     <Navbar />
-    <div class="w-full mx-auto pl-5 pr-5">
+    <div class="w-3/4 mx-auto pl-5 pr-5 mt-8">
       <div class="grid grid-cols-12 gap-x-1">
-        <div class="col-span-2 flex-shrink">
+        <div class="col-span-3 flex-shrink">
           <Sidebar />
         </div>
-        <div class="col-span-10">
-          <div class="w-full bg-white rounded shadow h-full p-5 leading-6">
+        <div class="col-span-9">
+          <div class="w-full bg-white rounded p-5 leading-6">
             <div class="flex justify-between">
               <el-row class="pr-10">
                 <router-link :to="{ name: 'post-create' }">
@@ -15,7 +15,11 @@
                 </router-link>
               </el-row>
             </div>
-            <el-table :data="this.tableData" style="width: 100%" class="mt-5">
+            <el-table
+              :data="this.tableData"
+              show-header="true"
+              class="w-full mt-5"
+            >
               <el-table-column prop="id" label="Id" width="100">
               </el-table-column>
               <el-table-column prop="title" label="Title" width="250">
@@ -63,7 +67,7 @@ export default {
   mounted() {
     this.$axios
       .get("http://localhost:8000/api/v1/users", {
-        headers: { Authorization: "Bearer " + localStorage.getItem('token') },
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       })
       .then((response) => (this.tableData = response.data.data));
   },

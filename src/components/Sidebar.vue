@@ -1,7 +1,7 @@
 <template>
   <el-menu
     default-active="2"
-    class="shadow-md rounded-b-sm tracking-wide text-gray-100"
+    class="rounded-b-sm tracking-wide text-gray-100"
   >
     <!-- <el-submenu index="1">
       <template slot="title">

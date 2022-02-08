@@ -1,13 +1,13 @@
 <template>
   <div>
     <Navbar />
-    <div class="w-full mx-auto pl-5 pr-5">
+    <div class="w-3/4 mx-auto pl-5 pr-5 mt-8">
       <div class="grid grid-cols-12 gap-x-1">
-        <div class="col-span-2 flex-shrink">
+        <div class="col-span-3 flex-shrink">
           <Sidebar />
         </div>
-        <div class="col-span-10">
-          <div class="w-full bg-white rounded shadow h-full p-5 leading-6">
+        <div class="col-span-9">
+          <div class="w-full bg-white p-5 leading-6">
             <div class="flex justify-between">
               <el-row class="pr-10">
                 <el-button type="primary" class="pr-16"

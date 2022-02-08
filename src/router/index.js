@@ -19,7 +19,7 @@ const routes = [
     component: () => import("../views/auth/Login")
   },
   {
-    path: '/dashboard',
+    path: '/admin/dashboard',
     name: 'dashboard',
     component: Dashboard,
     meta: {
@@ -27,7 +27,7 @@ const routes = [
     },
   },
   {
-    path: '/post',
+    path: '/admin/post',
     name: 'post',
     component: PostList,
     meta: {
@@ -35,9 +35,17 @@ const routes = [
     },
   },
   {
-    path: '/post/create',
+    path: '/admin/post/create',
     name: 'post-create',
     component: () => import('../views/admin/post/CreatePost'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/admin/category',
+    name: 'category',
+    component: () => import('../views/admin/category/Category'),
     meta: {
       requiresAuth: true,
     },
@@ -47,17 +55,17 @@ const routes = [
     name: 'home',
     component: Home,
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
-    path: '/category',
-    name: 'category',
-    component: () => import('../views/admin/category/Category'),
+    path: '/post/content',
+    name: 'Detail',
+    component: () => import('../views/page/Detail'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
-  }
+  },
 ]
 
 const router = new VueRouter({

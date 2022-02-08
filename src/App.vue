@@ -9,6 +9,14 @@ export default {};
 
 <style>
 body{
-  background: #f2f2f2
+  background: #e7e7e756
+}
+.el-table__body-wrapper::-webkit-scrollbar {
+  height: 10px;
+  cursor: pointer;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: #eeeeee;
+  border-radius: 5px;
 }
 </style>
