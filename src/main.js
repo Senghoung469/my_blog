@@ -9,7 +9,7 @@ import axios from 'axios';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 
 Vue.use(Element);
-Vue.use( CKEditor );
+Vue.use(CKEditor);
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false

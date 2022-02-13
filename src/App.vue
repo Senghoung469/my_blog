@@ -9,7 +9,7 @@ export default {};
 
 <style>
 body{
-  background: #e7e7e756
+  background: #eeeeee9a;
 }
 .el-table__body-wrapper::-webkit-scrollbar {
   height: 10px;

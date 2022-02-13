@@ -26,7 +26,7 @@
         <router-link :to="{ name: 'category' }"
           ><el-menu-item index="1-1">Category</el-menu-item></router-link
         >
-        <el-menu-item index="1-2">Sub Category</el-menu-item>
+        <el-menu-item index="1-2">Tag</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-menu-item index="3">

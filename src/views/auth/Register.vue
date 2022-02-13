@@ -1,74 +1,80 @@
 <template>
-  <div
-    class="
-      lg:w-2/10
-      md:w-1/3
-      sm:w-1/2
-      w-2/3
-      h-auto
-      mx-auto
-      mt-16
-      bg-white
-      p-5
-      rounded
-      shadow-md
-      text-sm
-    "
-  >
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
-      <el-form-item label="Username" prop="username">
-        <el-input
-          type="text"
-          v-model="ruleForm.username"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="Email (@)" prop="email">
-        <el-input
-          type="email"
-          v-model="ruleForm.email"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="Password (*)" prop="pass">
-        <el-input
-          type="password"
-          v-model="ruleForm.pass"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="Confirm Password" prop="checkPass">
-        <el-input
-          type="password"
-          v-model="ruleForm.checkPass"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          class="
-            w-full
-            rounded-sm
-            bg-gray-800
-            text-white
-            hover:bg-black hover:text-white
-            focus:bg-gray-800 focus:text-white
-            focus:border-transparent
-            mt-5
-            mb-5
-          "
-          type="button"
-          :loading="ruleForm.isLoading"
-          @click="submitForm('ruleForm')"
-          >Register</el-button
-        >
-        <div class="text-center text-gray-400 mt-3">
-          <router-link to="login" class="text-sm font-bold tracking-tight"
-            >If you has been registered please login</router-link
+  <div>
+    <div class="flex justify-center mt-5">
+      <img
+        src="https://www.codecheef.org/user/img/website-logo.png?ezimgfmt=rs:258x66/rscb2/ng:webp/ngcb2"
+        alt=""
+      />
+    </div>
+    <div
+      class="
+        lg:w-1/4
+        md:w-1/3
+        sm:w-1/2
+        w-2/3
+        mt-5
+        mx-auto
+        bg-white
+        p-5
+        rounded
+        shadow-sm
+        text-sm
+      "
+    >
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+        <el-form-item label="Username" prop="username">
+          <el-input
+            type="text"
+            v-model="ruleForm.username"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Email" prop="email">
+          <el-input
+            type="email"
+            v-model="ruleForm.email"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="pass">
+          <el-input
+            type="password"
+            v-model="ruleForm.pass"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Confirm Password" prop="checkPass">
+          <el-input
+            type="password"
+            v-model="ruleForm.checkPass"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            class="
+              w-full
+              rounded
+              bg-indigo-900
+              text-white
+              hover:bg-indigo-800 hover:text-white
+              focus:bg-indigo-900 focus:text-white focus:border-transparent
+              mt-5
+              mb-5
+            "
+            type="button"
+            :loading="ruleForm.isLoading"
+            @click="submitForm('ruleForm')"
+            >Register</el-button
           >
-        </div>
-      </el-form-item>
-    </el-form>
+          <div class="text-center text-indigo-800">
+            <router-link to="login" class="text-sm font-medium"
+              >If you has been registered please login</router-link
+            >
+          </div>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 

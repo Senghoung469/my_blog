@@ -14,6 +14,7 @@
         font-normal
         tracking-wide
         z-20
+        shadow-sm
       "
       v-if="this.width > 768"
     >
@@ -24,18 +25,15 @@
           />
         </a>
       </div>
-      <div class="space-x-5 flex items-center font-medium text-gray-500">
+      <div class="space-x-5 flex items-center font-medium text-gray-500 text-md leading-6 tracking-wide">
         <div>
-          <router-link to="#">Laravel8</router-link>
+          <router-link to="#" class="hover:text-indigo-700 text-indigo-800">Laravel8</router-link>
         </div>
         <div>
-          <router-link to="#">Vue</router-link>
+          <router-link to="#" class="hover:text-indigo-700 text-indigo-800">How-to</router-link>
         </div>
         <div>
-          <router-link to="#">How-to</router-link>
-        </div>
-        <div>
-          <router-link to="#">Tutorial</router-link>
+          <router-link to="#" class="hover:text-indigo-700 text-indigo-800">Tutorial</router-link>
         </div>
       </div>
     </nav>

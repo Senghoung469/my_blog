@@ -22,7 +22,7 @@
                 <el-form-item label="Activity Description" prop="desc">
                   <el-input
                     type="textarea"
-                    rows="4"
+                    rows="8"
                     v-model="ruleForm.desc"
                   ></el-input>
                 </el-form-item>
@@ -145,6 +145,9 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      const auth = localStorage.getItem("user_active");
+      console.log(auth[6])
+      // Prints "name Jean-Luc Picard" followed by "rank Captain"
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");

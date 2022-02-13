@@ -5,12 +5,7 @@
       <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
         <div class="lg:col-span-3 sm:col-span-12">
           <Sidebar />
-          <el-dialog
-            title="Message"
-            :visible.sync="dialogVisible"
-            width="25%"
-            :before-close="handleClose"
-          >
+          <el-dialog title="Message" :visible.sync="dialogVisible" width="25%">
             <span class="flex justify-center">
               {{ this.message }}
               <!-- Record has been created successfully -->
@@ -77,6 +72,7 @@
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 export default {
+  props: ["id"],
   data() {
     return {
       dialogVisible: false,
@@ -103,21 +99,38 @@ export default {
       },
     };
   },
+  mounted() {
+    // Get category by Id
+    this.$axios
+      .get(`http://localhost:8000/api/v1/category/${this.$route.params.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((response) => {
+        this.ruleForm.name = response.data.name;
+        this.ruleForm.description = response.data.description;
+      });
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm);
           this.$axios
-            .post("http://localhost:8000/api/v1/category", this.ruleForm, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
-              },
-            })
+            .post(
+              `http://localhost:8000/api/v1/category/${this.$route.params.id}`,
+              this.ruleForm,
+              {
+                headers: {
+                  Authorization:
+                    "Bearer " + localStorage.getItem("access_token"),
+                },
+              }
+            )
             .then((response) => {
               this.message = response.data.message;
               this.dialogVisible = true;
-              this.resetForm(formName);
+              this.$router.push({ name: "category" });
             });
         } else {
           console.log("error submit!!");

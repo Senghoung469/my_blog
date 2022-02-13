@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     status: null,
-    token: localStorage.getItem('token') || '',
+    access_token: localStorage.getItem('access_token') || '',
     user: {}
   },
   getters: {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     auth_success(state, payload) {
       state.status = 'success'
-      state.token = payload.token
+      state.token = payload.access_token
       state.user = payload.user
     },
     auth_error(state) {
@@ -31,9 +31,18 @@ export default new Vuex.Store({
         commit('auth_request')
         axios({ url: 'http://localhost:8000/oauth/token', data: user, method: 'POST' })
           .then(resp => {
-            const token = resp.data.access_token
-            localStorage.setItem('token', token)
-            commit('auth_success', { token: token, user: user })
+            const access_token = resp.data.access_token
+            const refresh_token = resp.data.refresh_token
+            localStorage.setItem('access_token', access_token)
+            localStorage.setItem('refresh_token', refresh_token)
+
+            axios({ url: 'http://localhost:8000/api/v1/user/active', headers: { 'Authorization': 'Bearer ' + access_token }, method: 'GET' })
+              .then(res => {
+                commit('auth_success', { access_token: access_token, user: res.data, refresh_token: refresh_token })
+              })
+              .catch(error => {
+                reject(error)
+              })
             resolve(resp)
           })
           .catch(err => {

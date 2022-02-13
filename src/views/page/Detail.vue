@@ -7,12 +7,12 @@
           <div>
             <img
               class="object-cover w-full"
-              src="https://www.itsolutionstuff.com/upload/laravel-7-http-client.png"
+              src="https://res.cloudinary.com/practicaldev/image/fetch/s--MrNHOyis--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/csc5lxfqxmlsymn63o4r.png"
             />
           </div>
           <div class="p-5">
-            <h1 class="text-xl text-indigo-800 font-bold mt-4 mb-2">
-              How to Get All Dates Between Two Dates in PHP?
+            <h1 class="text-xl text-indigo-900 font-bold mt-4 mb-2">
+              How To Build Rest API With NodeJS, Express, and MySQL
             </h1>
             <div class="flex text-sm text-gray-500 space-x-4">
               <svg
@@ -115,7 +115,7 @@
         </div>
       </div>
       <div class="col-span-4">
-        <div class="w-full shadow-sm bg-white p-2 mt-1 mb-1 rounded-t-sm">
+        <div class="w-full bg-gray-100 mt-1 mb-1 rounded-t-sm p-2">
           <div>
             <input
               type="text"
@@ -135,14 +135,16 @@
           </div>
         </div>
         <div class="bg-white">
-          <div class="text-white rounded-t-sm bg-indigo-900">
+          <div class="text-white rounded-t-sm">
             <h1
               class="
+                rounded-t-md
                 text-center
                 font-medium font-sans
                 text-md text-white
-                p-3
+                p-2
                 text-lg
+                bg-indigo-800
               "
             >
               Popular Posts

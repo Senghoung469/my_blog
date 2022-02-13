@@ -51,6 +51,22 @@ const routes = [
     },
   },
   {
+    path: '/admin/category/create',
+    name: 'category-create',
+    component: () => import('../views/admin/category/CreateCategory'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/admin/category/update',
+    name: 'category-update',
+    component: () => import('../views/admin/category/UpdateCategory'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/',
     name: 'home',
     component: Home,
@@ -65,7 +81,7 @@ const routes = [
     meta: {
       requiresAuth: false,
     },
-  },
+  }
 ]
 
 const router = new VueRouter({
@@ -76,7 +92,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('access_token')) {
       next()
       return
     }
