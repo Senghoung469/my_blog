@@ -5,17 +5,11 @@
       <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
         <div class="lg:col-span-3 sm:col-span-12">
           <Sidebar />
-          <el-dialog
-            title="Message"
-            :visible.sync="dialogVisible"
-            width="25%"
-            :before-close="handleClose"
-          >
+          <el-dialog title="Message" :visible.sync="dialogVisible" width="25%">
             <span class="flex justify-center">
               {{ this.message }}
             </span>
-            <span slot="footer" class="dialog-footer">
-            </span>
+            <span slot="footer" class="dialog-footer"> </span>
           </el-dialog>
         </div>
         <div class="lg:col-span-9 sm:col-span-12">
@@ -30,13 +24,6 @@
               >
                 <el-form-item label="Name" prop="name">
                   <el-input v-model="ruleForm.name"></el-input>
-                </el-form-item>
-                <el-form-item label="Description" prop="description">
-                  <el-input
-                    type="textarea"
-                    rows="8"
-                    v-model="ruleForm.description"
-                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button
@@ -72,13 +59,13 @@
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 export default {
+  props: ["id"],
   data() {
     return {
       dialogVisible: false,
       message: null,
       ruleForm: {
         name: null,
-        description: null,
       },
       rules: {
         name: [
@@ -88,31 +75,39 @@ export default {
             trigger: "blur",
           },
         ],
-        description: [
-          {
-            required: false,
-            message: "Please input Activity name",
-            trigger: "blur",
-          },
-        ],
       },
     };
+  },
+  mounted() {
+    // Get Tag by Id
+    this.$axios
+      .get(`${process.env.VUE_APP_ROOT_API}/tag/${this.$route.params.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((response) => {
+        this.ruleForm.name = response.data.name;
+        this.ruleForm.description = response.data.description;
+      });
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm);
           this.$axios
-            .post(`${process.env.VUE_APP_ROOT_API}/category`, this.ruleForm, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
-              },
-            })
-            .then((response) => {
-              this.message = response.data.message;
-              this.dialogVisible = true;
-              this.resetForm(formName);
+            .post(
+              `${process.env.VUE_APP_ROOT_API}/tag/${this.$route.params.id}`,
+              this.ruleForm,
+              {
+                headers: {
+                  Authorization:
+                    "Bearer " + localStorage.getItem("access_token"),
+                },
+              }
+            )
+            .then(() => {
+              this.$router.push({ name: "tag" });
             });
         } else {
           console.log("error submit!!");

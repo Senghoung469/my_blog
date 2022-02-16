@@ -7,6 +7,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/tailwind.css'
 import axios from 'axios';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
+const moment = require('moment')
+moment.locale()
+
+Vue.use(require('vue-moment'), {
+  moment
+})
 
 Vue.use(Element);
 Vue.use(CKEditor);

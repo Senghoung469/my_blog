@@ -9,18 +9,12 @@
             title="Detail Record"
             :visible.sync="dialogVisible"
             v-if="this.dialogVisible == true"
-            class="w-3/4 mx-auto"
+            class="w-3/6 mx-auto"
           >
             <div class="space-y-4 font-sans text-justify">
               <div class="font-medium">
-                Name:
+                Tag Name:
                 <span class="font-normal">{{ this.dataDetail.name }}</span>
-              </div>
-              <div class="font-medium">
-                Description:
-                <span class="font-normal">{{
-                  this.dataDetail.description
-                }}</span>
               </div>
               <div class="font-medium">
                 Created At:
@@ -41,7 +35,7 @@
           <div class="w-full bg-white p-5 leading-6">
             <div class="flex items-center">
               <el-row class="pr-10">
-                <router-link :to="{ name: 'category-create' }">
+                <router-link :to="{ name: 'tag-create' }">
                   <el-button
                     type="button"
                     class="
@@ -57,7 +51,7 @@
                       py-2
                       px-2
                     "
-                    >Add Category</el-button
+                    >Add Tag</el-button
                   >
                 </router-link>
               </el-row>
@@ -74,11 +68,9 @@
                 prop="id"
                 type="index"
                 label="N⁰"
-                width="100"
+                width="200"
               ></el-table-column>
-              <el-table-column prop="name" label="Name" width="300">
-              </el-table-column>
-              <el-table-column prop="description" label="Note" width="450">
+              <el-table-column prop="name" label="Tag Name" width="400">
               </el-table-column>
               <el-table-column fixed="right" label="Operation" width="150">
                 <template slot-scope="scope">
@@ -129,7 +121,7 @@ export default {
   },
   mounted() {
     this.$axios
-      .get(`${process.env.VUE_APP_ROOT_API}/categories`, {
+      .get(`${process.env.VUE_APP_ROOT_API}/tags`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
         },
@@ -150,7 +142,7 @@ export default {
       )
         .then(() => {
           this.$router.push({
-            name: "category-update",
+            name: "tag-update",
             params: { id: id },
           });
         })
@@ -175,7 +167,7 @@ export default {
         .then(() => {
           // Delete record
           this.$axios
-            .delete(`${process.env.VUE_APP_ROOT_API}/category/${id}`, {
+            .delete(`${process.env.VUE_APP_ROOT_API}/tag/${id}`, {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("access_token"),
               },
@@ -187,7 +179,7 @@ export default {
               });
               // Reload data tables
               this.$axios
-                .get(`${process.env.VUE_APP_ROOT_API}/categories`, {
+                .get(`${process.env.VUE_APP_ROOT_API}/tags`, {
                   headers: {
                     Authorization:
                       "Bearer " + localStorage.getItem("access_token"),
@@ -207,7 +199,7 @@ export default {
     handleDetail(id) {
       // Load data detail
       this.$axios
-        .get(`${process.env.VUE_APP_ROOT_API}/category/${id}`, {
+        .get(`${process.env.VUE_APP_ROOT_API}/tag/${id}`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token"),
           },

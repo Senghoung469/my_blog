@@ -3,10 +3,10 @@
     <Navbar />
     <div class="w-3/4 mx-auto pl-5 pr-5 mt-8">
       <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
-        <div class="lg:col-span-3 sm:col-span-12">
+        <div class="lg:col-span-3 sm:col-span-12 md:col-span-12">
           <Sidebar />
         </div>
-        <div class="lg:col-span-9 sm:col-span-12">
+        <div class="lg:col-span-9 sm:col-span-12 md:col-span-12">
           <div class="p-5 bg-white">
             <div class="flex justify-between items-center">
               <el-form
@@ -83,15 +83,17 @@
                   <el-button
                     type="button"
                     class="
-                      rounded-md
-                      bg-gray-800
-                      text-white
-                      hover:bg-black hover:text-white
-                      focus:bg-gray-800
+                      bg-indigo-800
+                      text-white text-sm
+                      hover:bg-indigo-800 hover:text-white
+                      focus:bg-indigo-700
                       focus:text-white
                       focus:border-transparent
-                      mt-5
-                      mb-5
+                      rounded
+                      font-sans
+                      outline-none
+                      py-2
+                      px-2
                     "
                     @click="submitForm('ruleForm')"
                     >Create</el-button
@@ -146,8 +148,7 @@ export default {
   methods: {
     submitForm(formName) {
       const auth = localStorage.getItem("user_active");
-      console.log(auth[6])
-      // Prints "name Jean-Luc Picard" followed by "rank Captain"
+      console.log(auth[6]);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");

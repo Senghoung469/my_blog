@@ -1,14 +1,45 @@
 <template>
   <div>
     <Navbar />
-    <div class="w-3/4 mx-auto pl-5 pr-5 mt-8">
-      <div class="grid grid-cols-12 gap-x-1">
-        <div class="col-span-3 flex-shrink">
+    <div class="lg:w-3/4 mx-auto pl-5 pr-5 mt-8">
+      <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
+        <div class="lg:col-span-3 sm:col-span-12 md:col-span-12">
           <Sidebar />
+          <el-dialog
+            title="Detail Record"
+            :visible.sync="dialogVisible"
+            v-if="this.dialogVisible == true"
+            class="w-3/4 mx-auto"
+          >
+            <div class="space-y-4 font-sans text-justify">
+              <div class="font-medium">
+                Name:
+                <span class="font-normal">{{ this.dataDetail.title }}</span>
+              </div>
+              <div class="font-medium">
+                Description:
+                <span class="font-normal">{{
+                  this.dataDetail.description
+                }}</span>
+              </div>
+              <div class="font-medium">
+                Created At:
+                <span class="font-normal">{{
+                  this.$moment(this.dataDetail.created_at).format("DD-MM-YYYY")
+                }}</span>
+              </div>
+              <div class="font-medium">
+                Updated At:
+                <span class="font-normal">{{
+                  this.$moment(this.dataDetail.updated_at).format("DD-MM-YYYY")
+                }}</span>
+              </div>
+            </div>
+          </el-dialog>
         </div>
-        <div class="col-span-9">
-          <div class="w-full bg-white rounded p-5 leading-6">
-            <div class="flex justify-between">
+        <div class="lg:col-span-9 sm:col-span-12">
+          <div class="w-full bg-white p-5 leading-6">
+            <div class="flex items-center">
               <el-row class="pr-10">
                 <router-link :to="{ name: 'post-create' }">
                   <el-button
@@ -26,21 +57,23 @@
                       py-2
                       px-2
                     "
-                    >Create Post</el-button
+                    >Add Post</el-button
                   >
                 </router-link>
               </el-row>
             </div>
             <el-table
               :data="this.tableData"
-              show-header="true"
               empty-text="No Data"
-              lazy="true"
               size="medium"
               class="w-full mt-5"
             >
-              <el-table-column prop="id" label="ID" width="100">
-              </el-table-column>
+              <el-table-column
+                prop="id"
+                type="index"
+                label="N⁰"
+                width="100"
+              ></el-table-column>
               <el-table-column prop="title" label="Title" width="250">
               </el-table-column>
               <el-table-column prop="user_id" label="Author" width="200">
@@ -56,15 +89,26 @@
               <el-table-column prop="status" label="Status" width="100">
               </el-table-column>
               <el-table-column fixed="right" label="Operation" width="150">
-                <template>
-                  <el-button type="text" size="small">Edit</el-button>
+                <template slot-scope="scope">
+                  <el-button
+                    type="text"
+                    size="small"
+                    @click.prevent="handleEdit(scope.row.id)"
+                    >Edit</el-button
+                  >
                   <el-button
                     type="text"
                     size="small"
                     class="text-red-500 hover:text-red-400 focus:text-red-500"
+                    @click.prevent="handleDelete(scope.row.id)"
                     >Remove</el-button
                   >
-                  <el-button type="text" size="small">Detail</el-button>
+                  <el-button
+                    type="text"
+                    size="small"
+                    @click.prevent="handleDetail(scope.row.id)"
+                    >View</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>
@@ -81,8 +125,10 @@ import Navbar from "@/components/Navbar";
 export default {
   data() {
     return {
-      token: null,
       tableData: null,
+      dataDetail: null,
+      message: null,
+      dialogVisible: false,
     };
   },
   components: {
@@ -91,12 +137,94 @@ export default {
   },
   mounted() {
     this.$axios
-      .get("http://localhost:8000/api/v1/post", {
+      .get(`${process.env.VUE_APP_ROOT_API}/posts`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
         },
       })
       .then((response) => (this.tableData = response.data.data));
+  },
+  methods: {
+    // Handle update
+    handleEdit(id) {
+      this.$confirm(
+        "This will permanently update the file. Continue?",
+        "Message",
+        {
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          type: "message",
+        }
+      )
+        .then(() => {
+          this.$router.push({
+            name: "category-update",
+            params: { id: id },
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "error",
+            message: "Update canceled",
+          });
+        });
+    },
+    // Handle Delete
+    handleDelete(id) {
+      this.$confirm(
+        "This will permanently delete the file. Continue?",
+        "Warning",
+        {
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          // Delete record
+          this.$axios
+            .delete(`${process.env.VUE_APP_ROOT_API}/category/${id}`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+              },
+            })
+            .then(() => {
+              this.$message({
+                type: "success",
+                message: "Delete completed",
+              });
+              // Reload data tables
+              this.$axios
+                .get(`${process.env.VUE_APP_ROOT_API}/categories`, {
+                  headers: {
+                    Authorization:
+                      "Bearer " + localStorage.getItem("access_token"),
+                  },
+                })
+                .then((response) => (this.tableData = response.data.data));
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "error",
+            message: "Delete canceled",
+          });
+        });
+    },
+    // Handle view detail
+    handleDetail(id) {
+      // Load data detail
+      this.$axios
+        .get(`${process.env.VUE_APP_ROOT_API}/category/${id}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        })
+        .then((response) => {
+          this.dataDetail = response.data;
+          this.dialogVisible = true;
+        });
+    },
   },
 };
 </script>

@@ -31,13 +31,6 @@
                 <el-form-item label="Name" prop="name">
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
-                <el-form-item label="Description" prop="description">
-                  <el-input
-                    type="textarea"
-                    rows="8"
-                    v-model="ruleForm.description"
-                  ></el-input>
-                </el-form-item>
                 <el-form-item>
                   <el-button
                     type="button"
@@ -77,20 +70,12 @@ export default {
       dialogVisible: false,
       message: null,
       ruleForm: {
-        name: null,
-        description: null,
+        name: null
       },
       rules: {
         name: [
           {
             required: true,
-            message: "Please input Activity name",
-            trigger: "blur",
-          },
-        ],
-        description: [
-          {
-            required: false,
             message: "Please input Activity name",
             trigger: "blur",
           },
@@ -104,7 +89,7 @@ export default {
         if (valid) {
           console.log(this.ruleForm);
           this.$axios
-            .post(`${process.env.VUE_APP_ROOT_API}/category`, this.ruleForm, {
+            .post(`${process.env.VUE_APP_ROOT_API}/tag`, this.ruleForm, {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("access_token"),
               },

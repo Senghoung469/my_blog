@@ -67,6 +67,30 @@ const routes = [
     },
   },
   {
+    path: '/admin/tag',
+    name: 'tag',
+    component: () => import('../views/admin/tag/Tag'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/admin/tag/create',
+    name: 'tag-create',
+    component: () => import('../views/admin/tag/CreateTag'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/admin/tag/update',
+    name: 'tag-update',
+    component: () => import('../views/admin/tag/UpdateTag'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/',
     name: 'home',
     component: Home,

@@ -8,14 +8,8 @@
           <el-dialog title="Message" :visible.sync="dialogVisible" width="25%">
             <span class="flex justify-center">
               {{ this.message }}
-              <!-- Record has been created successfully -->
             </span>
-            <span slot="footer" class="dialog-footer">
-              <!-- <el-button @click="dialogVisible = false">Cancel</el-button> -->
-              <!-- <el-button type="primary" @click="dialogVisible = false"
-                >OK</el-button
-              > -->
-            </span>
+            <span slot="footer" class="dialog-footer"> </span>
           </el-dialog>
         </div>
         <div class="lg:col-span-9 sm:col-span-12">
@@ -102,11 +96,14 @@ export default {
   mounted() {
     // Get category by Id
     this.$axios
-      .get(`http://localhost:8000/api/v1/category/${this.$route.params.id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-        },
-      })
+      .get(
+        `${process.env.VUE_APP_ROOT_API}/category/${this.$route.params.id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        }
+      )
       .then((response) => {
         this.ruleForm.name = response.data.name;
         this.ruleForm.description = response.data.description;
@@ -118,7 +115,7 @@ export default {
         if (valid) {
           this.$axios
             .post(
-              `http://localhost:8000/api/v1/category/${this.$route.params.id}`,
+              `${process.env.VUE_APP_ROOT_API}/category/${this.$route.params.id}`,
               this.ruleForm,
               {
                 headers: {
@@ -127,9 +124,7 @@ export default {
                 },
               }
             )
-            .then((response) => {
-              this.message = response.data.message;
-              this.dialogVisible = true;
+            .then(() => {
               this.$router.push({ name: "category" });
             });
         } else {
