@@ -8,7 +8,7 @@ export default {};
 </script>
 
 <style>
-body{
+body {
   background: #eeeeee9a;
 }
 .el-table__body-wrapper::-webkit-scrollbar {

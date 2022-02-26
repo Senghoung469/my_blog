@@ -12,7 +12,7 @@
           </div>
           <div class="p-5">
             <h1 class="text-xl text-indigo-900 font-bold mt-4 mb-2">
-              How To Build Rest API With NodeJS, Express, and MySQL
+              {{ post.title }}
             </h1>
             <div class="flex text-sm text-gray-500 space-x-4">
               <svg
@@ -44,44 +44,13 @@
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 ></path>
               </svg>
-              November 26, 2021
+              {{ this.$moment(post.created_at).format("DD-MMMM-YYYY") }}
             </div>
             <p class="font-serif text-gray-500 leading-7 text-justify mt-4">
-              Customizing the default breakpoints for your project. Configuring
-              custom screens You define your project’s breakpoints in the
-              theme.screens section of your tailwind.config.js file. The keys
-              become your responsive modifiers (like md:text-center), and the
-              values are the min-width where that breakpoint should start. The
-              default breakpoints are inspired by common device resolutions:
+              {{ post.description }}
             </p>
             <hr class="h-1 bg-gray-200 rounded-full mb-10 mt-4" />
-            <div class="space-y-5 leading-6">
-              <h1 class="text-2xl font-medium font-sans"># Brand</h1>
-              <h1 class="text-lg">
-                Tailwind CSS brand assets and usage guidelines.
-              </h1>
-              <div class="font-sans text-sm text-justify">
-                <p>
-                  You may not use the Tailwind name or logos in any way that
-                  could mistakenly imply any official connection with or
-                  endorsement of Tailwind Labs Inc. Any use of the Tailwind name
-                  or logos in a manner that could cause customer confusion is
-                  not permitted.
-                </p>
-                <br />
-                <p>
-                  Instead, you must use your own brand name in a way that
-                  clearly distinguishes it from Tailwind CSS. Examples that are
-                  permitted include “ComponentStudio for Tailwind CSS” or
-                  “UtilityThemes: Templates for Tailwind CSS”.
-                </p>
-                <div class="w-full mt-10 p-5">
-                  <img
-                    src="https://tailwindcss.com/_next/static/media/tailwindcss-logotype.ed60a6f85c663923c4d6ee9d85f359cd.svg"
-                  />
-                </div>
-              </div>
-            </div>
+            <div class="space-y-5 leading-6" v-html="post.content" />
           </div>
           <hr class="h-1 rounded-full mb-4 mt-4" />
           <div class="grid grid-cols-12 mb-10 gap-4">
@@ -141,10 +110,7 @@
                 rounded-t-md
                 text-center
                 font-medium font-sans
-                text-md text-white
-                p-2
-                text-lg
-                bg-indigo-800
+                text-md text-white text-lg
               "
             >
               Popular Posts
@@ -229,6 +195,23 @@
 <script>
 import Navbar from "@/components/Navbar";
 export default {
+  data() {
+    return {
+      post: null,
+    };
+  },
+  mounted() {
+    // Load Post
+    this.$axios
+      .get(`${process.env.VUE_APP_ROOT_API}/post/${this.$route.params.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((response) => {
+        this.post = response.data;
+      });
+  },
   components: {
     Navbar,
   },

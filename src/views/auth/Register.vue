@@ -8,7 +8,7 @@
     </div>
     <div
       class="
-        lg:w-1/4
+        lg:w-1/3
         md:w-1/3
         sm:w-1/2
         w-2/3
@@ -16,17 +16,18 @@
         mx-auto
         bg-white
         p-5
-        rounded
+        rounded-2xl
         shadow-sm
         text-sm
       "
     >
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
-        <el-form-item label="Username" prop="username">
+        <el-form-item label="Username" prop="name">
           <el-input
             type="text"
-            v-model="ruleForm.username"
+            v-model="ruleForm.name"
             autocomplete="off"
+            placeholder="Enter username"
           ></el-input>
         </el-form-item>
         <el-form-item label="Email" prop="email">
@@ -34,13 +35,15 @@
             type="email"
             v-model="ruleForm.email"
             autocomplete="off"
+            placeholder="Enter email"
           ></el-input>
         </el-form-item>
-        <el-form-item label="Password" prop="pass">
+        <el-form-item label="Password" prop="password">
           <el-input
             type="password"
-            v-model="ruleForm.pass"
+            v-model="ruleForm.password"
             autocomplete="off"
+            placeholder="Enter password"
           ></el-input>
         </el-form-item>
         <el-form-item label="Confirm Password" prop="checkPass">
@@ -48,6 +51,7 @@
             type="password"
             v-model="ruleForm.checkPass"
             autocomplete="off"
+            placeholder="Enter confirm password"
           ></el-input>
         </el-form-item>
         <el-form-item>
@@ -63,7 +67,7 @@
               mb-5
             "
             type="button"
-            :loading="ruleForm.isLoading"
+            :loading="isLoading"
             @click="submitForm('ruleForm')"
             >Register</el-button
           >
@@ -81,52 +85,64 @@
 <script>
 export default {
   data() {
-    var checkUsername = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("Please input the username"));
-      } else {
-        callback();
-      }
-    };
-    var checkEmail = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("Please input the email"));
-      } else {
-        callback();
-      }
-    };
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("Please input the password"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
-      }
-    };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("Please input the password again"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
+        console.log(value);
         callback(new Error("Two inputs don't match!"));
       } else {
         callback();
       }
     };
     return {
+      isLoading: false,
       ruleForm: {
-        isLoading: false,
-        pass: "",
-        checkPass: "",
-        username: "",
+        password: "",
+        name: "",
         email: "",
+        checkPass: null,
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        name: [
+          {
+            required: true,
+            message: "Please input Activity name",
+            trigger: "change",
+          },
+          {
+            min: 8,
+            max: 100,
+            message: "Length should be 8 to 100",
+            trigger: "change",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "Please input Activity password",
+            trigger: "change",
+          },
+          {
+            min: 8,
+            max: 100,
+            message: "Length should be 8 to 100",
+            trigger: "change",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "Please input Activity email",
+            trigger: "change",
+          },
+          {
+            type: "email",
+            message: "Please input type email",
+            trigger: "change",
+          },
+        ],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        username: [{ validator: checkUsername, trigger: "blur" }],
-        email: [{ validator: checkEmail, trigger: "blur" }],
       },
     };
   },
@@ -134,13 +150,43 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.get("/oauth/clients").then((response) => {
-            console.log(response.data);
-          });
+          this.signup();
         } else {
-          return false;
+          console.log("submit error");
         }
       });
+    },
+    signup: function () {
+      this.isLoading = true;
+      let grant_type = "password";
+      let client_id = "1";
+      let client_secret = "ZCPWHVtbdzBHWyRedRHA7QV18MVZPMi74N0Gd6No";
+      let name = this.ruleForm.name;
+      let email = this.ruleForm.email;
+      let password = this.ruleForm.password;
+
+      this.$store
+        .dispatch("signup", {
+          grant_type,
+          client_id,
+          client_secret,
+          email,
+          password,
+          name,
+        })
+        .then(() => {
+          this.$message({
+            showClose: true,
+            message: "Congrats, you registered successfully.",
+            type: "success",
+          });
+          this.isLoading = false;
+          this.$router.push("/admin/dashboard");
+        })
+        .catch((err) => {
+          this.$message.error("Oops, register is failed! " + err);
+          this.isLoading = false;
+        });
     },
   },
 };

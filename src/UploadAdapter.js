@@ -25,9 +25,9 @@ export default class UploadAdapter {
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
 
-        xhr.open('POST', 'http://localhost:8000/api/v1/uploader', true);
+        xhr.open('POST', `${process.env.VUE_APP_ROOT_API}/uploader`, true);
         xhr.setRequestHeader("X-CSRF-TOKEN", "CSRF-Token");
-        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem("access_token")}`);
         xhr.responseType = 'json';
     }
 

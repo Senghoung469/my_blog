@@ -13,7 +13,7 @@
           >
             <div class="space-y-4 font-sans text-justify">
               <div class="font-medium">
-                Name:
+                Title:
                 <span class="font-normal">{{ this.dataDetail.title }}</span>
               </div>
               <div class="font-medium">
@@ -63,7 +63,7 @@
               </el-row>
             </div>
             <el-table
-              :data="this.tableData"
+              :data="this.tableData.data"
               empty-text="No Data"
               size="medium"
               class="w-full mt-5"
@@ -76,7 +76,7 @@
               ></el-table-column>
               <el-table-column prop="title" label="Title" width="250">
               </el-table-column>
-              <el-table-column prop="user_id" label="Author" width="200">
+              <el-table-column prop="users.name" label="Author" width="200">
               </el-table-column>
               <el-table-column
                 prop="description"
@@ -87,6 +87,12 @@
               <el-table-column prop="thumbnail" label="Thumbnail" width="200">
               </el-table-column>
               <el-table-column prop="status" label="Status" width="100">
+                <template slot-scope="scope">
+                  <div v-if="scope.row.status == true" class="text-blue-500">
+                    Active
+                  </div>
+                  <div v-else class="text-red-500">Dactive</div>
+                </template>
               </el-table-column>
               <el-table-column fixed="right" label="Operation" width="150">
                 <template slot-scope="scope">
@@ -112,6 +118,17 @@
                 </template>
               </el-table-column>
             </el-table>
+            <div class="mt-10 flex justify-end" v-if="page">
+              <el-pagination
+                background
+                layout="prev, pager, next"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :total="this.page.total"
+                :page-size="this.page.per_page"
+              >
+              </el-pagination>
+            </div>
           </div>
         </div>
       </div>
@@ -125,6 +142,7 @@ import Navbar from "@/components/Navbar";
 export default {
   data() {
     return {
+      page: null,
       tableData: null,
       dataDetail: null,
       message: null,
@@ -142,9 +160,37 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
         },
       })
-      .then((response) => (this.tableData = response.data.data));
+      .then((response) => {
+        this.tableData = response.data;
+        this.page = response.data;
+      });
   },
   methods: {
+    handleSizeChange(val) {
+      // Load Post
+      this.$axios
+        .get(`${process.env.VUE_APP_ROOT_API}/posts?page=${val}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        })
+        .then((response) => {
+          // this.posts = response.data;
+          this.tableData = response.data;
+        });
+    },
+    handleCurrentChange(val) {
+      // Load Post
+      this.$axios
+        .get(`${process.env.VUE_APP_ROOT_API}/posts?page=${val}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        })
+        .then((response) => {
+          this.tableData = response.data;
+        });
+    },
     // Handle update
     handleEdit(id) {
       this.$confirm(
@@ -183,7 +229,7 @@ export default {
         .then(() => {
           // Delete record
           this.$axios
-            .delete(`${process.env.VUE_APP_ROOT_API}/category/${id}`, {
+            .delete(`${process.env.VUE_APP_ROOT_API}/post/${id}`, {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("access_token"),
               },
@@ -195,7 +241,7 @@ export default {
               });
               // Reload data tables
               this.$axios
-                .get(`${process.env.VUE_APP_ROOT_API}/categories`, {
+                .get(`${process.env.VUE_APP_ROOT_API}/posts`, {
                   headers: {
                     Authorization:
                       "Bearer " + localStorage.getItem("access_token"),
@@ -215,7 +261,7 @@ export default {
     handleDetail(id) {
       // Load data detail
       this.$axios
-        .get(`${process.env.VUE_APP_ROOT_API}/category/${id}`, {
+        .get(`${process.env.VUE_APP_ROOT_API}/post/${id}`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token"),
           },

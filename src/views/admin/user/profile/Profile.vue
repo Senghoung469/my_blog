@@ -5,18 +5,6 @@
       <div class="grid lg:grid-cols-12 md:grid-cols-12 gap-x-1 gap-y-1">
         <div class="lg:col-span-3 sm:col-span-12">
           <Sidebar />
-          <el-dialog
-            title="Message"
-            :visible.sync="dialogVisible"
-            width="25%"
-            :before-close="handleClose"
-          >
-            <span class="flex justify-center">
-              {{ this.message }}
-            </span>
-            <span slot="footer" class="dialog-footer">
-            </span>
-          </el-dialog>
         </div>
         <div class="lg:col-span-9 sm:col-span-12">
           <div class="p-5 bg-white">
@@ -31,12 +19,14 @@
                 <el-form-item label="Name" prop="name">
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
-                <el-form-item label="Description" prop="description">
-                  <el-input
-                    type="textarea"
-                    rows="8"
-                    v-model="ruleForm.description"
-                  ></el-input>
+                <el-form-item label="Email" prop="email">
+                  <el-input v-model="ruleForm.email"></el-input>
+                </el-form-item>
+                <el-form-item label="Password" prop="password">
+                  <el-input v-model="ruleForm.password"></el-input>
+                </el-form-item>
+                <el-form-item label="Confirm Password" prop="confirm_password">
+                  <el-input v-model="ruleForm.password"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button
@@ -52,10 +42,10 @@
                       font-sans
                       outline-none
                       py-2
-                      px-3
+                      px-5
                     "
                     @click="submitForm('ruleForm')"
-                    >Submit</el-button
+                    >Save</el-button
                   >
                   <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
@@ -78,7 +68,8 @@ export default {
       message: null,
       ruleForm: {
         name: null,
-        description: null,
+        email: null,
+        password: null,
       },
       rules: {
         name: [
@@ -88,15 +79,24 @@ export default {
             trigger: "blur",
           },
         ],
-        description: [
+        email: [
           {
             required: false,
-            message: "Please input Activity name",
+            message: "Please input Activity email",
             trigger: "blur",
           },
         ],
       },
     };
+  },
+  mounted() {
+    this.$axios
+      .get(`${process.env.VUE_APP_ROOT_API}/categories`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((response) => (this.tableData = response.data.data));
   },
   methods: {
     submitForm(formName) {

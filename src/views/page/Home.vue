@@ -7,7 +7,7 @@
           <div class="grid lg:grid-cols-12 gap-x-4">
             <div class="lg:col-span-6 sm:col-span-6">
               <img
-                src="https://www.itsolutionstuff.com/upload/laravel-8-ajax-image-upload.png"
+                src="https://www.itsolutionstuff.com/upload/laravel-7-http-client.png"
               />
             </div>
             <div class="lg:col-span-6 sm:col-span-6 pr-5">
@@ -36,10 +36,9 @@
         sm:grid-cols-12
         mt-2
         lg:gap-x-2
-        gap-y-10
       "
     >
-      <div class="lg:col-span-8 sm:col-span-12">
+      <div class="lg:col-span-8 sm:col-span-12 space-y-4">
         <div
           class="
             grid
@@ -51,6 +50,9 @@
             bg-white
             cursor-pointer
           "
+          v-for="post in posts.data"
+          :key="post.id"
+          @click.prevent="detailPost(post.id)"
         >
           <div class="lg:col-span-4 sm:col-span-4">
             <img
@@ -60,7 +62,7 @@
           </div>
           <div class="lg:col-span-7 sm:col-span-4">
             <h1 class="text-xl text-indigo-800 font-bold">
-              Angular 13 Google Maps Integration Example3
+              {{ post.title }}
             </h1>
             <p
               class="
@@ -71,11 +73,7 @@
                 leading-5
               "
             >
-              I am going to explain to you an example of angular 13 google maps
-              example. This article goes into detail on how to add google map in
-              angular 13. you can understand the concept of angular 13 google
-              map example. it's a simple example of angular 13 agm core google
-              maps example
+              {{ post.description }}
             </p>
           </div>
         </div>
@@ -83,8 +81,11 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="500"
-            :page-size="10"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage1"
+            :total="posts.total"
+            :page-size="posts.per_page"
           >
           </el-pagination>
         </div>
@@ -188,6 +189,56 @@
 <script>
 import Navbar from "@/components/Navbar";
 export default {
+  data() {
+    return {
+      currentPage1: 1,
+      posts: null,
+    };
+  },
+  mounted() {
+    // Load Posts
+    this.$axios
+      .get(`${process.env.VUE_APP_ROOT_API}/posts`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((response) => {
+        this.posts = response.data;
+      });
+  },
+  methods: {
+    handleSizeChange(val) {
+      // Load Post
+      this.$axios
+        .get(`${process.env.VUE_APP_ROOT_API}/posts?page=${val}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        })
+        .then((response) => {
+          this.posts = response.data;
+        });
+    },
+    handleCurrentChange(val) {
+      // Load Post
+      this.$axios
+        .get(`${process.env.VUE_APP_ROOT_API}/posts?page=${val}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        })
+        .then((response) => {
+          this.posts = response.data;
+        });
+    },
+    detailPost(post_id) {
+      this.$router.push({
+        name: "Detail",
+        params: { id: post_id },
+      });
+    },
+  },
   components: {
     Navbar,
   },

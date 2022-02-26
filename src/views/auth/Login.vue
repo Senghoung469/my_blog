@@ -16,7 +16,7 @@
         mx-auto
         bg-white
         p-5
-        rounded
+        rounded-2xl
         shadow-sm
         text-sm
       "
@@ -44,7 +44,7 @@
         </el-form-item>
         <el-form-item>
           <el-button
-            :loading="ruleForm.isLoading"
+            :loading="isLoading"
             type="button"
             class="
               w-full
@@ -56,7 +56,7 @@
               mt-5
               mb-5
             "
-            @click="submitForm('ruleForm')"
+            @click.prevent="submitForm('ruleForm')"
             >Login</el-button
           >
           <div class="text-center text-indigo-800">
@@ -91,14 +91,38 @@ export default {
       }
     };
     return {
+      isLoading: false,
       ruleForm: {
         password: "",
         checkPass: "",
         email: "",
       },
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
-        email: [{ validator: checkEmail, trigger: "blur" }],
+        password: [
+          {
+            required: true,
+            message: "Please input Activity password",
+            trigger: "change",
+          },
+          {
+            min: 8,
+            max: 100,
+            message: "Length should be 8 to 100",
+            trigger: "change",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "Please input Activity email",
+            trigger: "change",
+          },
+          {
+            type: "email",
+            message: "Please input type email",
+            trigger: "change",
+          },
+        ],
       },
     };
   },
@@ -112,7 +136,11 @@ export default {
         }
       });
     },
+    resetForm() {
+      this.ruleForm.password = "";
+    },
     login: function () {
+      this.isLoading = true;
       let grant_type = "password";
       let client_id = "1";
       let client_secret = "ZCPWHVtbdzBHWyRedRHA7QV18MVZPMi74N0Gd6No";
@@ -127,8 +155,20 @@ export default {
           username,
           password,
         })
-        .then(() => this.$router.push("/"))
-        .catch((err) => console.log(err));
+        .then(() => {
+          this.$message({
+            showClose: true,
+            message: "Congrats, you login successfully.",
+            type: "success",
+          });
+          this.isLoading = false;
+          this.$router.push("/admin/dashboard");
+        })
+        .catch(() => {
+          this.$message.error("Oops, username and password incorrect!");
+          this.resetForm();
+          this.isLoading = false;
+        });
     },
   },
 };

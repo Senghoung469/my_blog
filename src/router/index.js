@@ -99,13 +99,21 @@ const routes = [
     },
   },
   {
-    path: '/post/content',
+    path: '/post/article/ID=:id',
     name: 'Detail',
     component: () => import('../views/page/Detail'),
     meta: {
       requiresAuth: false,
     },
-  }
+  },
+  {
+    path: '/admin/profile/myprofile',
+    name: 'profile-update',
+    component: () => import('../views/admin/user/profile/Profile'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ]
 
 const router = new VueRouter({
